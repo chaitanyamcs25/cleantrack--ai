@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CleanTrack - Community Garbage Reporting</title>
+    <meta name="description" content="Report and track garbage in your local community with CleanTrack.">
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app-container">
+        <!-- Status Bar Mock for Mobile Feel -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <section id="home-screen" class="screen active">
+            <div class="home-content">
+                <div class="logo-container">
+                    <div class="glow-circle"></div>
+                    <i class="fas fa-leaf logo-icon"></i>
+                </div>
+                <h1 class="app-title">CleanTrack</h1>
+                <p class="app-subtitle">Keep your community clean, together.</p>
+                
+                <div class="action-buttons">
+                    <button id="btn-goto-report" class="btn primary-btn pulse-effect">
+                        <i class="fas fa-camera"></i> Report Garbage
+                    </button>
+                    <button id="btn-goto-map" class="btn secondary-btn glass-effect">
+                        <i class="fas fa-map-marked-alt"></i> View Map
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Screen -->
+        <section id="report-screen" class="screen">
+            <header class="screen-header">
+                <button class="back-btn" onclick="app.navigate('home-screen')"><i class="fas fa-chevron-left"></i></button>
+                <h2>New Report</h2>
+                <div class="header-spacer"></div>
+            </header>
+            
+            <div class="screen-content">
+                <div class="form-group">
+                    <label for="waste-type">Waste Type</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-trash-alt input-icon"></i>
+                        <input type="text" id="waste-type" placeholder="e.g. Plastic Bottles, Electronic Waste" required>
+                    </div>
+                </div>
+
+                <div class="upload-container glass-effect">
+                    <div class="upload-placeholder" id="upload-placeholder">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Tap to Upload Image</span>
+                        <small>PNG, JPG up to 10MB</small>
+                    </div>
+                    <img id="image-preview" src="" alt="Preview" style="display: none;">
+                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                </div>
+
+                <button id="btn-submit-report" class="btn primary-btn submit-btn">
+                    Submit Report <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Map Screen (List of reports) -->
+        <section id="map-screen" class="screen">
+            <header class="screen-header">
+                <button class="back-btn" onclick="app.navigate('home-screen')"><i class="fas fa-chevron-left"></i></button>
+                <h2>Community Map</h2>
+                <div class="header-spacer"></div>
+            </header>
+            
+            <div class="map-container">
+                <!-- Mock Map visual -->
+                <div class="mock-map">
+                    <div class="map-overlay"></div>
+                    <div class="map-marker pulse-marker" style="top: 30%; left: 40%;"></div>
+                    <div class="map-marker" style="top: 60%; left: 70%;"></div>
+                </div>
+            </div>
+
+            <div class="list-container glass-panel">
+                <div class="list-header">
+                    <h3>Recent Reports</h3>
+                    <span class="badge" id="report-count">0</span>
+                </div>
+                <ul id="reports-list" class="reports-list">
+                    <!-- Reports will be injected here via JS -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Status Screen -->
+        <section id="status-screen" class="screen">
+            <header class="screen-header">
+                <button class="back-btn" onclick="app.navigate('map-screen')"><i class="fas fa-chevron-left"></i></button>
+                <h2>Report Status</h2>
+                <div class="header-spacer"></div>
+            </header>
+            
+            <div class="screen-content flex-center">
+                <div class="status-card glass-effect">
+                    <div class="status-header">
+                        <h3 id="status-waste-type">Plastic Bottles</h3>
+                        <span class="id-badge">#CT-892</span>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-step active completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <div class="step-content">
+                                <h4>Submitted</h4>
+                                <p>Report received by system</p>
+                            </div>
+                        </div>
+                        <div class="timeline-line active"></div>
+                        <div class="timeline-step active current">
+                            <div class="step-icon"><i class="fas fa-spinner fa-spin"></i></div>
+                            <div class="step-content">
+                                <h4>In Progress</h4>
+                                <p>Assigned to cleanup crew</p>
+                            </div>
+                        </div>
+                        <div class="timeline-line"></div>
+                        <div class="timeline-step">
+                            <div class="step-icon"><i class="fas fa-flag"></i></div>
+                            <div class="step-content">
+                                <h4>Escalated</h4>
+                                <p>Pending local authority review</p>
+                            </div>
+                        </div>
+                         <div class="timeline-line"></div>
+                        <div class="timeline-step">
+                            <div class="step-icon"><i class="fas fa-check-double"></i></div>
+                            <div class="step-content">
+                                <h4>Resolved</h4>
+                                <p>Area cleaned successfully</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bottom Navigation Mock -->
+        <nav class="bottom-nav glass-nav">
+            <div class="nav-item active" onclick="app.navigate('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item action-btn" onclick="app.navigate('report-screen')">
+                <div class="floating-btn">
+                    <i class="fas fa-plus"></i>
+                </div>
+            </div>
+            <div class="nav-item" onclick="app.navigate('map-screen')">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Map</span>
+            </div>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
